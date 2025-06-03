@@ -1,0 +1,15 @@
+{
+    "@context": "https://schema.org",
+    "@type": "CarDealer",
+    "name": "Kerala Car Sales",
+    "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "123 MG Road",
+        "addressLocality": "Kochi",
+        "addressRegion": "Kerala",
+        "postalCode": "682001",
+        "addressCountry": "IN"
+    },
+    "telephone": "+91-9876543210",
+    "url": "https://username.github.io"
+}
