@@ -1,0 +1,10 @@
+[33mcommit 0b78ee28642e662aaa73235809aa25710e53e5af[m[33m ([m[1;31morigin/master[m[33m)[m
+Author: JO <henryyy799@gmail.com>
+Date:   Wed Jun 4 02:41:41 2025 +0530
+
+    Ignore CARPRJ folder
+
+[1mdiff --git a/.gitignore b/.gitignore[m
+[1mnew file mode 100644[m
+[1mindex 0000000..abdac71[m
+Binary files /dev/null and b/.gitignore differ
