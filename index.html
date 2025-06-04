@@ -8,6 +8,7 @@
     <title>Kerala Car Sales - Find Your Dream Car</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="css/custom.css">
     <script src="analytics.js"></script>
     <script type="application/ld+json">
@@ -23,7 +24,7 @@
             "postalCode": "682001",
             "addressCountry": "IN"
         },
-        "telephone": "+91-9800000000",
+        "telephone": "+91-987000000",
         "url": "https://Zyrex411.github.io/CARPRJ"
     }
     </script>
@@ -42,6 +43,7 @@
                     <li class="nav-item"><a class="nav-link" href="#used-cars">Used Cars</a></li>
                     <li class="nav-item"><a class="nav-link" href="#sell-car">Sell Car</a></li>
                     <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link" href="admin-login.html">Admin</a></li>
                 </ul>
             </div>
         </div>
@@ -86,63 +88,49 @@
         </div>
     </section>
 
+    <section id="cars-by-budget" class="py-5">
+        <div class="container">
+            <h2>Cars by Budget</h2>
+            <div class="row mt-4">
+                <div class="col-md-3">
+                    <a href="#new-cars" class="budget-card card text-center p-3 mb-3">
+                        <h5>Under ₹10 Lakh</h5>
+                        <p>Avg. Ex-Showroom Price</p>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="#new-cars" class="budget-card card text-center p-3 mb-3">
+                        <h5>₹10 - 20 Lakh</h5>
+                        <p>Avg. Ex-Showroom Price</p>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="#new-cars" class="budget-card card text-center p-3 mb-3">
+                        <h5>₹20 - 30 Lakh</h5>
+                        <p>Avg. Ex-Showroom Price</p>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="#new-cars" class="budget-card card text-center p-3 mb-3">
+                        <h5>Luxury Cars</h5>
+                        <p>Avg. Ex-Showroom Price</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="new-cars" class="py-5 bg-light">
         <div class="container">
             <h2>New Cars</h2>
-            <div class="row mt-4">
-                <div class="col-md-4 mb-4 car-card" data-car-id="1">
-                    <div class="card">
-                        <img src="images/car1.jpg" class="card-img-top" alt="Honda City 2023">
-                        <div class="card-body">
-                            <h5 class="card-title">Honda City 2023</h5>
-                            <p class="card-text">Price: ₹12,50,000</p>
-                            <button class="btn btn-primary view-details" data-bs-toggle="modal" data-bs-target="#carDetailsModal">View Details</button>
-                            <button onclick="shareCarOnWhatsApp('Honda City 2023', '1250000')" class="btn btn-success mt-2"><i class="fab fa-whatsapp"></i> Share</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4 car-card" data-car-id="2">
-                    <div class="card">
-                        <img src="images/car2.jpg" class="card-img-top" alt="Maruti Swift 2023">
-                        <div class="card-body">
-                            <h5 class="card-title">Maruti Swift 2023</h5>
-                            <p class="card-text">Price: ₹7,50,000</p>
-                            <button class="btn btn-primary view-details" data-bs-toggle="modal" data-bs-target="#carDetailsModal">View Details</button>
-                            <button onclick="shareCarOnWhatsApp('Maruti Swift 2023', '750000')" class="btn btn-success mt-2"><i class="fab fa-whatsapp"></i> Share</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="row mt-4" id="newCarsContainer"></div>
         </div>
     </section>
 
     <section id="used-cars" class="py-5">
         <div class="container">
             <h2>Popular Used Cars in Kerala</h2>
-            <div class="row mt-4">
-                <div class="col-md-4 mb-4 car-card" data-car-id="3">
-                    <div class="card">
-                        <img src="images/car1.jpg" class="card-img-top" alt="Used Kia Seltos">
-                        <div class="card-body">
-                            <h5 class="card-title">Kia Seltos 2020</h5>
-                            <p class="card-text">Price: ₹8,00,000</p>
-                            <button class="btn btn-primary view-details" data-bs-toggle="modal" data-bs-target="#carDetailsModal">View Details</button>
-                            <button onclick="shareCarOnWhatsApp('Kia Seltos 2020', '800000')" class="btn btn-success mt-2"><i class="fab fa-whatsapp"></i> Share</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4 car-card" data-car-id="4">
-                    <div class="card">
-                        <img src="images/car2.jpg" class="card-img-top" alt="Used Tata Altroz">
-                        <div class="card-body">
-                            <h5 class="card-title">Tata Altroz 2021</h5>
-                            <p class="card-text">Price: ₹5,50,000</p>
-                            <button class="btn btn-primary view-details" data-bs-toggle="modal" data-bs-target="#carDetailsModal">View Details</button>
-                            <button onclick="shareCarOnWhatsApp('Tata Altroz 2021', '550000')" class="btn btn-success mt-2"><i class="fab fa-whatsapp"></i> Share</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="row mt-4" id="usedCarsContainer"></div>
         </div>
     </section>
 
@@ -172,11 +160,41 @@
                         <label for="carPrice" class="form-label">Expected Price</label>
                         <input type="text" class="form-control" id="carPrice" name="car_price" placeholder="e.g. ₹5,00,000" required>
                     </div>
+                    <div class="col-md-4">
+                        <label for="sellerImage" class="form-label">Car Image</label>
+                        <input type="file" class="form-control" id="sellerImage" name="image" accept="image/*">
+                    </div>
                     <div class="col-md-12">
                         <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#sellCarModal">Submit Details</button>
                     </div>
                 </div>
             </form>
+        </div>
+    </section>
+
+    <section id="fuel-type" class="py-5">
+        <div class="container">
+            <h2>Cars by Fuel Type</h2>
+            <div class="row mt-4">
+                <div class="col-md-4">
+                    <a href="#new-cars" class="fuel-card card text-center p-3 mb-3">
+                        <h5>Electric Cars</h5>
+                        <p>Avg. Ex-Showroom Price</p>
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <a href="#new-cars" class="fuel-card card text-center p-3 mb-3">
+                        <h5>Hybrid Cars</h5>
+                        <p>Avg. Ex-Showroom Price</p>
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <a href="#new-cars" class="fuel-card card text-center p-3 mb-3">
+                        <h5>CNG Cars</h5>
+                        <p>Avg. Ex-Showroom Price</p>
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -219,6 +237,7 @@
                         <li><strong>Year:</strong> <span id="submittedYear"></span></li>
                         <li><strong>Expected Price:</strong> <span id="submittedPrice"></span></li>
                         <li><strong>Email:</strong> <span id="submittedEmail"></span></li>
+                        <li><strong>Image:</strong> <img id="submittedImage" src="" class="img-fluid" style="max-height: 100px;"></li>
                     </ul>
                     <p>We’ll contact you soon!</p>
                 </div>
@@ -242,6 +261,7 @@
     </footer>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/custom.js"></script>
     <script src="script.js"></script>

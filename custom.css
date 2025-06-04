@@ -13,17 +13,18 @@ body {
     border-radius: 10px;
 }
 .budget-card, .fuel-card {
-    transition: transform 0.3s;
+    transition: transform 0.3s ease;
 }
 .budget-card:hover, .fuel-card:hover {
     transform: scale(1.05);
 }
 .car-card {
     opacity: 0;
-    animation: fadeIn 1s forwards;
+    transform: translateY(20px);
+    animation: slideIn 0.5s forwards;
 }
-@keyframes fadeIn {
-    to { opacity: 1; }
+@keyframes slideIn {
+    to { opacity: 1; transform: translateY(0); }
 }
 .car-card:nth-child(1) { animation-delay: 0.2s; }
 .car-card:nth-child(2) { animation-delay: 0.4s; }
@@ -33,4 +34,11 @@ body {
 }
 #search-results {
     background: #f8f9fa;
+    transition: all 0.5s ease;
+}
+.card {
+    transition: box-shadow 0.3s ease;
+}
+.card:hover {
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
