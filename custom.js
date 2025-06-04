@@ -9,12 +9,12 @@ $(document).ready(function() {
         return hash.toString();
     }
 
-    // Load users from localStorage
+    // Load users
     function getUsers() {
         return JSON.parse(localStorage.getItem('users') || '[]');
     }
 
-    // Save users to localStorage
+    // Save users
     function saveUsers(users) {
         localStorage.setItem('users', JSON.stringify(users));
     }
@@ -34,11 +34,26 @@ $(document).ready(function() {
             return;
         }
 
-        users.push({ userId, email, hashedPassword, role });
-        saveUsers(users);
-        localStorage.setItem('authToken', userId);
-        localStorage.setItem('authRole', role);
-        redirectUser(role, userId);
+        const file = $('#signupProfilePic')[0].files[0];
+        const user = { userId, email, hashedPassword, role, profilePic: '', favorites: [], searches: [] };
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                user.profilePic = e.target.result;
+                users.push(user);
+                saveUsers(users);
+                localStorage.setItem('authToken', userId);
+                localStorage.setItem('authRole', role);
+                redirectUser(role);
+            };
+            reader.readAsDataURL(file);
+        } else {
+            users.push(user);
+            saveUsers(users);
+            localStorage.setItem('authToken', userId);
+            localStorage.setItem('authRole', role);
+            redirectUser(role);
+        }
     });
 
     // Login
@@ -55,14 +70,14 @@ $(document).ready(function() {
         if (user) {
             localStorage.setItem('authToken', userId);
             localStorage.setItem('authRole', role);
-            redirectUser(role, userId);
+            redirectUser(role);
         } else {
             alert('Invalid credentials!');
         }
     });
 
-    // Redirect based on role
-    function redirectUser(role, userId) {
+    // Redirect
+    function redirectUser(role) {
         if (role === 'admin') {
             window.location.href = 'admin-panel.html';
         } else {
@@ -70,7 +85,7 @@ $(document).ready(function() {
         }
     }
 
-    // Check auth status
+    // Check auth
     const token = localStorage.getItem('authToken');
     const role = localStorage.getItem('authRole');
     if (token) {
@@ -82,6 +97,9 @@ $(document).ready(function() {
                 $('#profileUserId').text(user.userId);
                 $('#profileEmail').text(user.email);
                 $('#profileRole').text(user.role);
+                $('#profilePic').attr('src', user.profilePic || 'images/default-profile.jpg');
+                loadFavorites(user.favorites);
+                loadSearches(user.searches);
             }
         }
     }
@@ -100,8 +118,12 @@ $(document).ready(function() {
 
     // Theme switcher
     window.switchTheme = function(theme) {
-        $('html').attr('data-theme', theme);
-        localStorage.setItem('theme', theme);
+        gsap.to('body', { opacity: 0, duration: 0.3, onComplete: () => {
+            $('html').attr('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            gsap.to('body', { opacity: 1, duration: 0.3 });
+        }});
+        $('.theme-switcher').val(theme);
     };
 
     // Load theme
@@ -113,16 +135,30 @@ $(document).ready(function() {
     function loadCars() {
         $.getJSON('data/cars.json', function(data) {
             $('#newCarsContainer, #usedCarsContainer, #carList').empty();
+            $('#compareCar1, #compareCar2, #compareCar3').empty().append('<option value="">Select Car</option>');
             data.forEach(car => {
                 const card = `
-                    <div class="col-md-4 col-sm-6 mb-4 car-card" data-car-id="${car.id}">
-                        <div class="card">
-                            <img src="${car.image}" class="card-img-top" alt="${car.model}">
-                            <div class="card-body">
-                                <h5 class="card-title">${car.model}</h5>
-                                <p class="card-text">Price: ₹${car.price.toLocaleString()}</p>
-                                <button class="btn btn-primary view-details" data-bs-toggle="modal" data-bs-target="#carDetailsModal">View Details</button>
-                                <button onclick="shareCarOnWhatsApp('${car.model}', '${car.price}')" class="btn btn-success mt-2"><i class="fab fa-whatsapp"></i> Share</button>
+                    <div class="col-md-4 col-sm-6 mb-4 car-card flip-card" data-car-id="${car.id}">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="card">
+                                    <img src="${car.image}" class="card-img-top" alt="${car.model}">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${car.model}</h5>
+                                        <p class="card-text">Price: ₹${car.price.toLocaleString()}</p>
+                                        <button class="btn btn-primary view-details" data-bs-toggle="modal" data-bs-target="#carDetailsModal" aria-label="View Details for ${car.model}">View Details</button>
+                                        <button onclick="shareCarOnWhatsApp('${car.model}', '${car.price}')" class="btn btn-success mt-2" aria-label="Share ${car.model}"><i class="fab fa-whatsapp"></i> Share</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flip-card-back">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <h5>${car.model}</h5>
+                                        <p>${car.fuel} | ${car.city}</p>
+                                        <button class="btn btn-warning add-compare" data-id="${car.id}" aria-label="Add ${car.model} to Compare">Add to Compare</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -141,13 +177,17 @@ $(document).ready(function() {
                             <div class="card-body">
                                 <h5>${car.model}</h5>
                                 <p>Price: ₹${car.price.toLocaleString()}</p>
-                                <button class="btn btn-warning edit-car" data-id="${car.id}">Edit</button>
-                                <button class="btn btn-danger delete-car" data-id="${car.id}">Delete</button>
+                                <button class="btn btn-warning edit-car" data-id="${car.id}" aria-label="Edit ${car.model}">Edit</button>
+                                <button class="btn btn-danger delete-car" data-id="${car.id}" aria-label="Delete ${car.model}">Delete</button>
                             </div>
                         </div>
                     </div>
                 `;
                 $('#carList').append(adminCard);
+
+                // Compare dropdowns
+                const option = `<option value="${car.id}">${car.model}</option>`;
+                $('#compareCar1, #compareCar2, #compareCar3').append(option);
             });
 
             bindCarEvents();
@@ -167,6 +207,8 @@ $(document).ready(function() {
                     $('#carCity').text(car.city);
                     $('#carDetails').text(car.details);
                     $('#carImage').attr('src', car.image);
+                    $('#favoriteCarBtn').data('car-id', carId);
+                    gsap.from('.modal-content', { scale: 0.8, opacity: 0, duration: 0.3 });
                     $('#carDetailsModal').modal('show');
                 }
             });
@@ -184,7 +226,7 @@ $(document).ready(function() {
                     $('#carFuel').val(car.fuel);
                     $('#carCity').val(car.city);
                     $('#carDetails').val(car.details);
-                    $('html, body').animate({ scrollTop: $('#carForm').offset().top }, 500);
+                    gsap.to('html, body', { scrollTop: $('#carForm').offset().top, duration: 0.5 });
                 }
             });
         });
@@ -194,6 +236,17 @@ $(document).ready(function() {
                 const carId = $(this).data('id');
                 alert('Please update cars.json manually to remove car ID ' + carId);
                 loadCars();
+            }
+        });
+
+        $('.add-compare').off('click').click(function() {
+            const carId = $(this).data('id');
+            const selects = ['#compareCar1', '#compareCar2', '#compareCar3'];
+            for (let select of selects) {
+                if (!$(select).val()) {
+                    $(select).val(carId);
+                    break;
+                }
             }
         });
     }
@@ -269,19 +322,36 @@ $(document).ready(function() {
     });
 
     // Search
-    window.searchCars = function() {
+    window.searchCars = function(save = true) {
         const city = $('#citySelect').val();
         const type = $('#carType').val();
+        const budget = $('#budgetFilter').val();
         const name = $('#carSearch').val().toLowerCase();
 
         $.getJSON('data/cars.json', function(data) {
             let results = data.filter(car => {
+                const budgetMatch = budget === '' ||
+                    (budget === 'under10' && car.price < 1000000) ||
+                    (budget === '10to20' && car.price >= 1000000 && car.price < 2000000) ||
+                    (budget === '20to30' && car.price >= 2000000 && car.price < 3000000) ||
+                    (budget === 'luxury' && car.price >= 3000000);
                 return (!city || car.city === city) &&
                        (!type || car.type === type) &&
+                       budgetMatch &&
                        (!name || car.model.toLowerCase().includes(name));
             });
 
-            $('#search-results').slideDown(500);
+            if (save && token && role === 'user') {
+                const users = getUsers();
+                const user = users.find(u => u.userId === token);
+                if (user) {
+                    user.searches = user.searches || [];
+                    user.searches.push({ city, type, budget, name, timestamp: new Date().toLocaleString() });
+                    saveUsers(users);
+                }
+            }
+
+            gsap.to('#search-results', { height: 'auto', opacity: 1, duration: 0.5 });
             const container = $('#results-container').empty();
 
             if (results.length === 0) {
@@ -289,14 +359,27 @@ $(document).ready(function() {
             } else {
                 results.forEach(car => {
                     const card = `
-                        <div class="col-md-4 col-sm-6 mb-4 car-card" data-car-id="${car.id}">
-                            <div class="card">
-                                <img src="${car.image}" class="card-img-top" alt="${car.model}">
-                                <div class="card-body">
-                                    <h5 class="card-title">${car.model}</h5>
-                                    <p class="card-text">Price: ₹${car.price.toLocaleString()}</p>
-                                    <button class="btn btn-primary view-details" data-bs-toggle="modal" data-bs-target="#carDetailsModal">View Details</button>
-                                    <button onclick="shareCarOnWhatsApp('${car.model}', '${car.price}')" class="btn btn-success mt-2"><i class="fab fa-whatsapp"></i> Share</button>
+                        <div class="col-md-4 col-sm-6 mb-4 car-card flip-card" data-car-id="${car.id}">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <div class="card">
+                                        <img src="${car.image}" class="card-img-top" alt="${car.model}">
+                                        <div class="card-body">
+                                            <h5 class="card-title">${car.model}</h5>
+                                            <p class="card-text">Price: ₹${car.price.toLocaleString()}</p>
+                                            <button class="btn btn-primary view-details" data-bs-toggle="modal" data-bs-target="#carDetailsModal" aria-label="View Details for ${car.model}">View Details</button>
+                                            <button onclick="shareCarOnWhatsApp('${car.model}', '${car.price}')" class="btn btn-success mt-2" aria-label="Share ${car.model}"><i class="fab fa-whatsapp"></i> Share</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flip-card-back">
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <h5>${car.model}</h5>
+                                            <p>${car.fuel} | ${car.city}</p>
+                                            <button class="btn btn-warning add-compare" data-id="${car.id}" aria-label="Add ${car.model} to Compare">Add to Compare</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -317,12 +400,133 @@ $(document).ready(function() {
         });
     });
 
-    // Language switcher
-    window.changeLanguage = function(lang) {
-        alert(`Switching to ${lang}`);
+    // Favorite cars
+    window.addFavoriteCar = function() {
+        if (!token || role !== 'user') {
+            alert('Please log in as a user to add favorites!');
+            return;
+        }
+        const carId = $('#favoriteCarBtn').data('car-id');
+        const users = getUsers();
+        const user = users.find(u => u.userId === token);
+        if (user) {
+            user.favorites = user.favorites || [];
+            if (!user.favorites.includes(carId)) {
+                user.favorites.push(carId);
+                saveUsers(users);
+                alert('Car added to favorites!');
+            } else {
+                alert('Car already in favorites!');
+            }
+        }
     };
 
-    // Load cars on admin panel and main page
+    function loadFavorites(favorites) {
+        if (!favorites || favorites.length === 0) {
+            $('#favoriteCars').append('<p>No favorite cars yet.</p>');
+            return;
+        }
+        $.getJSON('data/cars.json', function(data) {
+            favorites.forEach(carId => {
+                const car = data.find(c => c.id == carId);
+                if (car) {
+                    const card = `
+                        <div class="col-md-4 col-sm-6 mb-4 car-card">
+                            <div class="card">
+                                <img src="${car.image}" class="card-img-top" alt="${car.model}">
+                                <div class="card-body">
+                                    <h5 class="card-title">${car.model}</h5>
+                                    <p class="card-text">Price: ₹${car.price.toLocaleString()}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    $('#favoriteCars').append(card);
+                }
+            });
+        });
+    }
+
+    function loadSearches(searches) {
+        if (!searches || searches.length === 0) {
+            $('#savedSearches').append('<li>No saved searches yet.</li>');
+            return;
+        }
+        searches.forEach(search => {
+            const li = `<li><a href="#" class="saved-search" data-city="${search.city}" data-type="${search.type}" data-budget="${search.budget}" data-name="${search.name}">${search.name || 'All'} in ${search.city || 'Any City'} (${search.type || 'Any Type'}, ${search.budget || 'Any Budget'}) - ${search.timestamp}</a></li>`;
+            $('#savedSearches').append(li);
+        });
+        $('.saved-search').click(function(e) {
+            e.preventDefault();
+            $('#citySelect').val($(this).data('city'));
+            $('#carType').val($(this).data('type'));
+            $('#budgetFilter').val($(this).data('budget'));
+            $('#carSearch').val($(this).data('name'));
+            searchCars(false);
+        });
+    }
+
+    // Compare cars
+    window.compareCars = function() {
+        const carIds = [
+            $('#compareCar1').val(),
+            $('#compareCar2').val(),
+            $('#compareCar3').val()
+        ].filter(id => id);
+        if (carIds.length < 2) {
+            alert('Please select at least two cars to compare!');
+            return;
+        }
+        $.getJSON('data/cars.json', function(data) {
+            const cars = carIds.map(id => data.find(c => c.id == parseInt(id)));
+            const container = $('#compareResults').empty();
+            const table = `
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                ${cars.map(car => `<th>${car.model}</th>`).join('')}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Price</td>${cars.map(car => `<td>₹${car.price.toLocaleString()}</td>`).join('')}</tr>
+                            <tr><td>Fuel</td>${cars.map(car => `<td>${car.fuel}</td>`).join('')}</tr>
+                            <tr><td>City</td>${cars.map(car => `<td>${car.city}</td>`).join('')}</tr>
+                            <tr><td>Details</td>${cars.map(car => `<td>${car.details}</td>`).join('')}</tr>
+                        </tbody>
+                    </table>
+                </div>
+            `;
+            container.append(table);
+            gsap.from('#compareResults', { y: 50, opacity: 0, duration: 0.5 });
+        });
+    };
+
+    // Google Maps
+    function initMap() {
+        const map = new google.maps.Map(document.getElementById('map'), {
+            center: { lat: 9.9312, lng: 76.2673 }, // Kochi
+            zoom: 8
+        });
+        const markers = [
+            { lat: 9.9312, lng: 76.2673, title: 'Kochi Dealer' },
+            { lat: 10.5276, lng: 76.2144, title: 'Thrissur Dealer' }
+        ];
+        markers.forEach(m => {
+            new google.maps.Marker({
+                position: { lat: m.lat, lng: m.lng },
+                map,
+                title: m.title
+            });
+        });
+    }
+
+    if (window.location.pathname.includes('index.html')) {
+        initMap();
+    }
+
+    // Load cars
     if (window.location.pathname.includes('admin-panel.html') || window.location.pathname.includes('index.html')) {
         loadCars();
     }

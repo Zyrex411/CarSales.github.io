@@ -5,28 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel - Kerala Car Sales</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/custom.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+    <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container">
             <a class="navbar-brand" href="index.html">Kerala Car Sales</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="index.html#home">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="index.html#new-cars">New Cars</a></li>
-                    <li class="nav-item"><a class="nav-link" href="index.html#used-cars">Used Cars</a></li>
-                    <li class="nav-item"><a class="nav-link" href="index.html#sell-car">Sell Car</a></li>
-                    <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
-                    <li class="nav-item"><button class="btn btn-danger nav-link" onclick="logout()">Logout</button></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#home" aria-label="Home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#new-cars" aria-label="New Cars">New Cars</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#used-cars" aria-label="Used Cars">Used Cars</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#sell-car" aria-label="Sell Car">Sell Car</a></li>
+                    <li class="nav-item"><a class="nav-link" href="blog.html" aria-label="Blog">Blog</a></li>
+                    <li class="nav-item"><button class="btn btn-danger nav-link" onclick="logout()" aria-label="Logout">Logout</button></li>
                     <li class="nav-item">
-                        <select class="form-select theme-switcher" onchange="switchTheme(this.value)">
+                        <select class="form-select theme-switcher" onchange="switchTheme(this.value)" aria-label="Theme Switcher">
                             <option value="light">Light</option>
                             <option value="dark">Dark</option>
-                            <option value="vibrant">Vibrant</option>
+                            <option value="cosmic">Cosmic</option>
                         </select>
                     </li>
                 </ul>
@@ -34,29 +35,29 @@
         </div>
     </nav>
     <div class="container py-5">
-        <h2>Admin Panel</h2>
+        <h2 class="admin-title">Admin Panel</h2>
         <h3>Add/Edit Car</h3>
         <form id="carForm" class="mb-5">
             <input type="hidden" id="carId">
             <div class="row g-3">
                 <div class="col-md-4 col-sm-6">
                     <label for="carModel" class="form-label">Model</label>
-                    <input type="text" class="form-control" id="carModel" required>
+                    <input type="text" class="form-control" id="carModel" required aria-label="Car Model">
                 </div>
                 <div class="col-md-4 col-sm-6">
                     <label for="carType" class="form-label">Type</label>
-                    <select class="form-select" id="carType" required>
+                    <select class="form-select" id="carType" required aria-label="Car Type">
                         <option value="new">New</option>
                         <option value="used">Used</option>
                     </select>
                 </div>
                 <div class="col-md-4 col-sm-12">
                     <label for="carPrice" class="form-label">Price (₹)</label>
-                    <input type="number" class="form-control" id="carPrice" required>
+                    <input type="number" class="form-control" id="carPrice" required aria-label="Car Price">
                 </div>
                 <div class="col-md-4 col-sm-6">
                     <label for="carFuel" class="form-label">Fuel</label>
-                    <select class="form-select" id="carFuel" required>
+                    <select class="form-select" id="carFuel" required aria-label="Fuel Type">
                         <option value="Petrol">Petrol</option>
                         <option value="Diesel">Diesel</option>
                         <option value="Electric">Electric</option>
@@ -66,7 +67,7 @@
                 </div>
                 <div class="col-md-4 col-sm-6">
                     <label for="carCity" class="form-label">City</label>
-                    <select class="form-select" id="carCity" required>
+                    <select class="form-select" id="carCity" required aria-label="City">
                         <option value="Kochi">Kochi</option>
                         <option value="Thrissur">Thrissur</option>
                         <option value="Trivandrum">Trivandrum</option>
@@ -75,15 +76,15 @@
                 </div>
                 <div class="col-md-4 col-sm-12">
                     <label for="carImage" class="form-label">Image</label>
-                    <input type="file" class="form-control" id="carImage" accept="image/*">
+                    <input type="file" class="form-control" id="carImage" accept="image/*" aria-label="Car Image">
                 </div>
                 <div class="col-md-12">
                     <label for="carDetails" class="form-label">Details</label>
-                    <textarea class="form-control" id="carDetails" rows="4" required></textarea>
+                    <textarea class="form-control" id="carDetails" rows="4" required aria-label="Car Details"></textarea>
                 </div>
                 <div class="col-md-12">
-                    <button type="submit" class="btn btn-primary">Save Car</button>
-                    <button type="button" class="btn btn-secondary" onclick="resetForm()">Reset</button>
+                    <button type="submit" class="btn btn-primary" aria-label="Save Car">Save Car</button>
+                    <button type="button" class="btn btn-secondary" onclick="resetForm()" aria-label="Reset Form">Reset</button>
                 </div>
             </div>
         </form>
@@ -93,6 +94,7 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
     <script src="js/custom.js"></script>
 </body>
 </html>

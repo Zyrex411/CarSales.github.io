@@ -38,5 +38,15 @@
         "city": "Trivandrum",
         "image": "images/car2.jpg",
         "details": "1.2L engine, 20 kmpl, 30,000 km driven, rear camera."
+    },
+    {
+        "id": 5,
+        "model": "Hyundai Creta 2022",
+        "type": "new",
+        "price": 1500000,
+        "fuel": "Diesel",
+        "city": "Kozhikode",
+        "image": "images/car3.jpg",
+        "details": "1.5L diesel, 22 kmpl, automatic, panoramic sunroof."
     }
 ]
