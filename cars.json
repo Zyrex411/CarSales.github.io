@@ -8,7 +8,7 @@
         "city": "Kochi",
         "image": "images/car1.jpg",
         "details": "1.5L engine, 26 kmpl mileage, automatic transmission."
-        // [IMAGE PLACEHOLDER] Save 'car1.jpg' in images/ (download from Unsplash, 300x200)
+        
     },
     {
         "id": 2,
@@ -19,7 +19,6 @@
         "city": "Thrissur",
         "image": "images/car2.jpg",
         "details": "1.2L engine, 23 kmpl mileage, manual transmission."
-        // [IMAGE PLACEHOLDER] Save 'car2.jpg' in images/ (download from Unsplash, 300x200)
     },
     {
         "id": 3,
@@ -30,7 +29,6 @@
         "city": "Kochi",
         "image": "images/car1.jpg",
         "details": "1.5L diesel, 21 kmpl, 50,000 km driven."
-        // [IMAGE PLACEHOLDER] Reuse 'car1.jpg'
     },
     {
         "id": 4,
@@ -41,6 +39,5 @@
         "city": "Trivandrum",
         "image": "images/car2.jpg",
         "details": "1.2L engine, 20 kmpl, 30,000 km driven."
-        //[IMAGE PLACEHOLDER] Reuse 'car2.jpg'
     }
 ]
