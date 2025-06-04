@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Affordable car sales in Kerala. Find used and new cars in Kochi, Thrissur, and more.">
-    <meta name="keywords" content="car sales Kerala, used cars Kochi, affordable cars Thrissur">
-    <title>Kerala Car Sales</title>
+    <meta name="description" content="Find new and used cars in Kerala. Affordable prices in Kochi, Thrissur, and more.">
+    <meta name="keywords" content="car sales Kerala, used cars Kochi, new cars Thrissur, electric cars Kerala">
+    <title>Kerala Car Sales - Find Your Dream Car</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/custom.css">
     <script src="analytics.js"></script>
     <script type="application/ld+json">
     {
@@ -23,12 +24,12 @@
             "addressCountry": "IN"
         },
         "telephone": "+91-9876543210",
-        "url": "https://ZyreX411.github.io"
+        "url": "https://Zyrex411.github.io/CARPRJ"
     }
     </script>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
         <div class="container">
             <a class="navbar-brand" href="#">Kerala Car Sales</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -37,45 +38,102 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#inventory">Inventory</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#new-cars">New Cars</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#used-cars">Used Cars</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#sell-car">Sell Car</a></li>
                     <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <section id="home" class="py-5 text-center bg-light">
+    <section id="home" class="hero py-5 text-center bg-light">
         <div class="container">
-            <h1>Welcome to Kerala Car Sales</h1>
-            <p>Find your dream car at affordable prices in Kerala.</p>
-            <a href="#inventory" class="btn btn-primary">View Inventory</a>
+            <h1>Find Your Right Car in Kerala</h1>
+            <p class="lead">Explore new and used cars at unbeatable prices!</p>
+            <div class="search-box mx-auto mt-4">
+                <div class="row g-2">
+                    <div class="col-md-3">
+                        <select class="form-select" id="citySelect">
+                            <option value="">Select City</option>
+                            <option value="Kochi">Kochi</option>
+                            <option value="Thrissur">Thrissur</option>
+                            <option value="Trivandrum">Trivandrum</option>
+                            <option value="Kozhikode">Kozhikode</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-select" id="carType">
+                            <option value="new">New</option>
+                            <option value="used">Used</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="carSearch" placeholder="Type car name, e.g. Alto">
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-primary w-100" onclick="searchCars()"><i class="fas fa-search"></i> Search</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <section id="inventory" class="py-5">
+    <section id="cars-by-budget" class="py-5">
         <div class="container">
-            <h2>Our Inventory</h2>
-            <div class="row">
-                <div class="col-md-4 mb-4">
+            <h2>Cars by Budget</h2>
+            <div class="row mt-4">
+                <div class="col-md-3">
+                    <a href="#new-cars" class="budget-card card text-center p-3 mb-3">
+                        <h5>Under ₹10 Lakh</h5>
+                        <p>Avg. Ex-Showroom Price</p>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="#new-cars" class="budget-card card text-center p-3 mb-3">
+                        <h5>₹10 - 20 Lakh</h5>
+                        <p>Avg. Ex-Showroom Price</p>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="#new-cars" class="budget-card card text-center p-3 mb-3">
+                        <h5>₹20 - 30 Lakh</h5>
+                        <p>Avg. Ex-Showroom Price</p>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="#new-cars" class="budget-card card text-center p-3 mb-3">
+                        <h5>Luxury Cars</h5>
+                        <p>Avg. Ex-Showroom Price</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="new-cars" class="py-5 bg-light">
+        <div class="container">
+            <h2>New Cars</h2>
+            <div class="row mt-4">
+                <div class="col-md-4 mb-4 car-card">
                     <div class="card">
-                        <img src="images/car1.jpg" class="card-img-top" alt="Honda City 2020">
+                        <img src="images/car1.jpg" class="card-img-top" alt="Honda City 2023">
                         <div class="card-body">
-                            <h5 class="card-title">Honda City 2020</h5>
-                            <p class="card-text">Price: ₹8,50,000</p>
+                            <h5 class="card-title">Honda City 2023</h5>
+                            <p class="card-text">Price: ₹12,50,000</p>
                             <a href="#" class="btn btn-primary">View Details</a>
-                            <button onclick="shareCarOnWhatsApp('Honda City 2020', '850000')" class="btn btn-success mt-2">Share on WhatsApp</button>
+                            <button onclick="shareCarOnWhatsApp('Honda City 2023', '1250000')" class="btn btn-success mt-2"><i class="fab fa-whatsapp"></i> Share</button>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-4">
+                <div class="col-md-4 mb-4 car-card">
                     <div class="card">
-                        <img src="images/car2.jpg" class="card-img-top" alt="Maruti Swift 2021">
+                        <img src="images/car2.jpg" class="card-img-top" alt="Maruti Swift 2023">
                         <div class="card-body">
-                            <h5 class="card-title">Maruti Swift 2021</h5>
-                            <p class="card-text">Price: ₹6,50,000</p>
+                            <h5 class="card-title">Maruti Swift 2023</h5>
+                            <p class="card-text">Price: ₹7,50,000</p>
                             <a href="#" class="btn btn-primary">View Details</a>
-                            <button onclick="shareCarOnWhatsApp('Maruti Swift 2021', '650000')" class="btn btn-success mt-2">Share on WhatsApp</button>
+                            <button onclick="shareCarOnWhatsApp('Maruti Swift 2023', '750000')" class="btn btn-success mt-2"><i class="fab fa-whatsapp"></i> Share</button>
                         </div>
                     </div>
                 </div>
@@ -83,34 +141,111 @@
         </div>
     </section>
 
-    <section id="contact" class="py-5 bg-light">
+    <section id="used-cars" class="py-5">
         <div class="container">
-            <h2>Contact Us</h2>
-            <form action="https://formspree.io/f/xeokqbzg" method="POST">
-                <div class="mb-3">
-                    <label for="name" class="form-label">Name</label>
-                    <input type="text" class="form-control" id="name" name="name" required>
+            <h2>Popular Used Cars in Kerala</h2>
+            <div class="row mt-4">
+                <div class="col-md-4 mb-4 car-card">
+                    <div class="card">
+                        <img src="images/car1.jpg" class="card-img-top" alt="Used Kia Seltos">
+                        <div class="card-body">
+                            <h5 class="card-title">Kia Seltos 2020</h5>
+                            <p class="card-text">Price: ₹8,00,000</p>
+                            <a href="#" class="btn btn-primary">View Details</a>
+                            <button onclick="shareCarOnWhatsApp('Kia Seltos 2020', '800000')" class="btn btn-success mt-2"><i class="fab fa-whatsapp"></i> Share</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
+                <div class="col-md-4 mb-4 car-card">
+                    <div class="card">
+                        <img src="images/car2.jpg" class="card-img-top" alt="Used Tata Altroz">
+                        <div class="card-body">
+                            <h5 class="card-title">Tata Altroz 2021</h5>
+                            <p class="card-text">Price: ₹5,50,000</p>
+                            <a href="#" class="btn btn-primary">View Details</a>
+                            <button onclick="shareCarOnWhatsApp('Tata Altroz 2021', '550000')" class="btn btn-success mt-2"><i class="fab fa-whatsapp"></i> Share</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="message" class="form-label">Message</label>
-                    <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
+            </div>
+        </div>
+    </section>
+
+    <section id="sell-car" class="py-5 bg-light">
+        <div class="container">
+            <h2>Want to Sell Your Car?</h2>
+            <p class="lead">Reach thousands of buyers in Kerala!</p>
+            <form action="https://formspree.io/f/your-form-id" method="POST" class="mt-4">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label for="sellerName" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="sellerName" name="name" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="sellerEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="sellerEmail" name="email" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="carModel" class="form-label">Car Model</label>
+                        <input type="text" class="form-control" id="carModel" name="car_model" placeholder="e.g. Maruti Swift" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="carYear" class="form-label">Year</label>
+                        <input type="number" class="form-control" id="carYear" name="car_year" placeholder="e.g. 2020" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="carPrice" class="form-label">Expected Price</label>
+                        <input type="text" class="form-control" id="carPrice" name="car_price" placeholder="e.g. ₹5,00,000" required>
+                    </div>
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-primary">Submit Details</button>
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Send</button>
             </form>
+        </div>
+    </section>
+
+    <section id="fuel-type" class="py-5">
+        <div class="container">
+            <h2>Cars by Fuel Type</h2>
+            <div class="row mt-4">
+                <div class="col-md-4">
+                    <a href="#new-cars" class="fuel-card card text-center p-3 mb-3">
+                        <h5>Electric Cars</h5>
+                        <p>Avg. Ex-Showroom Price</p>
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <a href="#new-cars" class="fuel-card card text-center p-3 mb-3">
+                        <h5>Hybrid Cars</h5>
+                        <p>Avg. Ex-Showroom Price</p>
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <a href="#new-cars" class="fuel-card card text-center p-3 mb-3">
+                        <h5>CNG Cars</h5>
+                        <p>Avg. Ex-Showroom Price</p>
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
 
     <footer class="py-3 bg-dark text-white text-center">
         <div class="container">
             <p>© 2025 Kerala Car Sales. All Rights Reserved.</p>
+            <div class="language-switcher mt-2">
+                <select onchange="changeLanguage(this.value)">
+                    <option value="en">English</option>
+                    <option value="ml">Malayalam</option>
+                </select>
+            </div>
         </div>
     </footer>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/custom.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
