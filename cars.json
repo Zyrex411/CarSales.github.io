@@ -7,7 +7,8 @@
         "fuel": "Petrol",
         "city": "Kochi",
         "image": "images/car1.jpg",
-        "details": "1.5L engine, 26 kmpl mileage, automatic transmission, ABS, airbags."
+        "details": "1.5L engine, 26 kmpl mileage, automatic transmission."
+        // [IMAGE PLACEHOLDER] Save 'car1.jpg' in images/ (download from Unsplash, 300x200)
     },
     {
         "id": 2,
@@ -17,7 +18,8 @@
         "fuel": "Petrol",
         "city": "Thrissur",
         "image": "images/car2.jpg",
-        "details": "1.2L engine, 23 kmpl mileage, manual transmission, touchscreen infotainment."
+        "details": "1.2L engine, 23 kmpl mileage, manual transmission."
+        // [IMAGE PLACEHOLDER] Save 'car2.jpg' in images/ (download from Unsplash, 300x200)
     },
     {
         "id": 3,
@@ -27,7 +29,8 @@
         "fuel": "Diesel",
         "city": "Kochi",
         "image": "images/car1.jpg",
-        "details": "1.5L diesel, 21 kmpl, 50,000 km driven, sunroof, leather seats."
+        "details": "1.5L diesel, 21 kmpl, 50,000 km driven."
+        // [IMAGE PLACEHOLDER] Reuse 'car1.jpg'
     },
     {
         "id": 4,
@@ -37,16 +40,7 @@
         "fuel": "Petrol",
         "city": "Trivandrum",
         "image": "images/car2.jpg",
-        "details": "1.2L engine, 20 kmpl, 30,000 km driven, rear camera."
-    },
-    {
-        "id": 5,
-        "model": "Hyundai Creta 2022",
-        "type": "new",
-        "price": 1500000,
-        "fuel": "Diesel",
-        "city": "Kozhikode",
-        "image": "images/car3.jpg",
-        "details": "1.5L diesel, 22 kmpl, automatic, panoramic sunroof."
+        "details": "1.2L engine, 20 kmpl, 30,000 km driven."
+        //[IMAGE PLACEHOLDER] Reuse 'car2.jpg'
     }
 ]
