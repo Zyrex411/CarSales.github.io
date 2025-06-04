@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,13 +24,13 @@
             "postalCode": "682001",
             "addressCountry": "IN"
         },
-        "telephone": "+91-987000000",
+        "telephone": "+91-9876000000",
         "url": "https://Zyrex411.github.io/CARPRJ"
     }
     </script>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
         <div class="container">
             <a class="navbar-brand" href="#">Kerala Car Sales</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -43,19 +43,26 @@
                     <li class="nav-item"><a class="nav-link" href="#used-cars">Used Cars</a></li>
                     <li class="nav-item"><a class="nav-link" href="#sell-car">Sell Car</a></li>
                     <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
-                    <li class="nav-item"><a class="nav-link" href="admin-login.html">Admin</a></li>
+                    <li class="nav-item"><a class="nav-link" href="auth.html" id="authLink">Login/Sign Up</a></li>
+                    <li class="nav-item">
+                        <select class="form-select theme-switcher" onchange="switchTheme(this.value)">
+                            <option value="light">Light</option>
+                            <option value="dark">Dark</option>
+                            <option value="vibrant">Vibrant</option>
+                        </select>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <section id="home" class="hero py-5 text-center bg-light">
+    <section id="home" class="hero py-5 text-center">
         <div class="container">
-            <h1>Find Your Right Car in Kerala</h1>
+            <h1 class="hero-title">Find Your Right Car in Kerala</h1>
             <p class="lead">Explore new and used cars at unbeatable prices!</p>
             <div class="search-box mx-auto mt-4">
                 <div class="row g-2">
-                    <div class="col-md-3">
+                    <div class="col-md-3 col-sm-6">
                         <select class="form-select" id="citySelect">
                             <option value="">Select City</option>
                             <option value="Kochi">Kochi</option>
@@ -64,17 +71,17 @@
                             <option value="Kozhikode">Kozhikode</option>
                         </select>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 col-sm-6">
                         <select class="form-select" id="carType">
                             <option value="new">New</option>
                             <option value="used">Used</option>
                         </select>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-sm-12">
                         <input type="text" class="form-control" id="carSearch" placeholder="Type car name, e.g. Alto">
                     </div>
-                    <div class="col-md-2">
-                        <button class="btn btn-primary w-100" onclick="searchCars()"><i class="fas fa-search"></i> Search</button>
+                    <div class="col-md-2 col-sm-12">
+                        <button class="btn btn-primary w-100 search-btn" onclick="searchCars()"><i class="fas fa-search"></i> Search</button>
                     </div>
                 </div>
             </div>
@@ -92,25 +99,25 @@
         <div class="container">
             <h2>Cars by Budget</h2>
             <div class="row mt-4">
-                <div class="col-md-3">
+                <div class="col-md-3 col-sm-6">
                     <a href="#new-cars" class="budget-card card text-center p-3 mb-3">
                         <h5>Under ₹10 Lakh</h5>
                         <p>Avg. Ex-Showroom Price</p>
                     </a>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 col-sm-6">
                     <a href="#new-cars" class="budget-card card text-center p-3 mb-3">
                         <h5>₹10 - 20 Lakh</h5>
                         <p>Avg. Ex-Showroom Price</p>
                     </a>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 col-sm-6">
                     <a href="#new-cars" class="budget-card card text-center p-3 mb-3">
                         <h5>₹20 - 30 Lakh</h5>
                         <p>Avg. Ex-Showroom Price</p>
                     </a>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 col-sm-6">
                     <a href="#new-cars" class="budget-card card text-center p-3 mb-3">
                         <h5>Luxury Cars</h5>
                         <p>Avg. Ex-Showroom Price</p>
@@ -120,7 +127,7 @@
         </div>
     </section>
 
-    <section id="new-cars" class="py-5 bg-light">
+    <section id="new-cars" class="py-5">
         <div class="container">
             <h2>New Cars</h2>
             <div class="row mt-4" id="newCarsContainer"></div>
@@ -134,33 +141,33 @@
         </div>
     </section>
 
-    <section id="sell-car" class="py-5 bg-light">
+    <section id="sell-car" class="py-5">
         <div class="container">
             <h2>Want to Sell Your Car?</h2>
             <p class="lead">Reach thousands of buyers in Kerala!</p>
             <form id="sellCarForm" class="mt-4">
                 <div class="row g-3">
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-sm-6">
                         <label for="sellerName" class="form-label">Name</label>
                         <input type="text" class="form-control" id="sellerName" name="name" required>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-sm-6">
                         <label for="sellerEmail" class="form-label">Email</label>
                         <input type="email" class="form-control" id="sellerEmail" name="email" required>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-sm-12">
                         <label for="carModel" class="form-label">Car Model</label>
                         <input type="text" class="form-control" id="carModel" name="car_model" placeholder="e.g. Maruti Swift" required>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-sm-6">
                         <label for="carYear" class="form-label">Year</label>
                         <input type="number" class="form-control" id="carYear" name="car_year" placeholder="e.g. 2020" required>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-sm-6">
                         <label for="carPrice" class="form-label">Expected Price</label>
                         <input type="text" class="form-control" id="carPrice" name="car_price" placeholder="e.g. ₹5,00,000" required>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-sm-12">
                         <label for="sellerImage" class="form-label">Car Image</label>
                         <input type="file" class="form-control" id="sellerImage" name="image" accept="image/*">
                     </div>
@@ -176,19 +183,19 @@
         <div class="container">
             <h2>Cars by Fuel Type</h2>
             <div class="row mt-4">
-                <div class="col-md-4">
+                <div class="col-md-4 col-sm-6">
                     <a href="#new-cars" class="fuel-card card text-center p-3 mb-3">
                         <h5>Electric Cars</h5>
                         <p>Avg. Ex-Showroom Price</p>
                     </a>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 col-sm-6">
                     <a href="#new-cars" class="fuel-card card text-center p-3 mb-3">
                         <h5>Hybrid Cars</h5>
                         <p>Avg. Ex-Showroom Price</p>
                     </a>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 col-sm-6">
                     <a href="#new-cars" class="fuel-card card text-center p-3 mb-3">
                         <h5>CNG Cars</h5>
                         <p>Avg. Ex-Showroom Price</p>
@@ -248,7 +255,7 @@
         </div>
     </div>
 
-    <footer class="py-3 bg-dark text-white text-center">
+    <footer class="py-3 text-center">
         <div class="container">
             <p>© 2025 Kerala Car Sales. All Rights Reserved.</p>
             <div class="language-switcher mt-2">

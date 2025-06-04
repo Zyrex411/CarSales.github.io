@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,29 +8,53 @@
     <link rel="stylesheet" href="css/custom.css">
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Kerala Car Sales</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#new-cars">New Cars</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#used-cars">Used Cars</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#sell-car">Sell Car</a></li>
+                    <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+                    <li class="nav-item"><button class="btn btn-danger nav-link" onclick="logout()">Logout</button></li>
+                    <li class="nav-item">
+                        <select class="form-select theme-switcher" onchange="switchTheme(this.value)">
+                            <option value="light">Light</option>
+                            <option value="dark">Dark</option>
+                            <option value="vibrant">Vibrant</option>
+                        </select>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
     <div class="container py-5">
         <h2>Admin Panel</h2>
-        <button class="btn btn-danger mb-3" onclick="logout()">Logout</button>
         <h3>Add/Edit Car</h3>
         <form id="carForm" class="mb-5">
             <input type="hidden" id="carId">
             <div class="row g-3">
-                <div class="col-md-4">
+                <div class="col-md-4 col-sm-6">
                     <label for="carModel" class="form-label">Model</label>
                     <input type="text" class="form-control" id="carModel" required>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 col-sm-6">
                     <label for="carType" class="form-label">Type</label>
                     <select class="form-select" id="carType" required>
                         <option value="new">New</option>
                         <option value="used">Used</option>
                     </select>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 col-sm-12">
                     <label for="carPrice" class="form-label">Price (₹)</label>
                     <input type="number" class="form-control" id="carPrice" required>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 col-sm-6">
                     <label for="carFuel" class="form-label">Fuel</label>
                     <select class="form-select" id="carFuel" required>
                         <option value="Petrol">Petrol</option>
@@ -40,7 +64,7 @@
                         <option value="CNG">CNG</option>
                     </select>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 col-sm-6">
                     <label for="carCity" class="form-label">City</label>
                     <select class="form-select" id="carCity" required>
                         <option value="Kochi">Kochi</option>
@@ -49,7 +73,7 @@
                         <option value="Kozhikode">Kozhikode</option>
                     </select>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 col-sm-12">
                     <label for="carImage" class="form-label">Image</label>
                     <input type="file" class="form-control" id="carImage" accept="image/*">
                 </div>

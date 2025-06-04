@@ -9,38 +9,105 @@ $(document).ready(function() {
         return hash.toString();
     }
 
-    // Admin login
-    $('#adminLoginForm').submit(function(e) {
+    // Load users from localStorage
+    function getUsers() {
+        return JSON.parse(localStorage.getItem('users') || '[]');
+    }
+
+    // Save users to localStorage
+    function saveUsers(users) {
+        localStorage.setItem('users', JSON.stringify(users));
+    }
+
+    // Sign up
+    $('#signupForm').submit(function(e) {
         e.preventDefault();
-        const userId = $('#userId').val();
-        const email = $('#email').val();
-        const password = $('#password').val();
+        const userId = $('#signupUserId').val();
+        const email = $('#signupEmail').val();
+        const password = $('#signupPassword').val();
+        const role = $('#signupRole').val();
         const hashedPassword = simpleHash(password);
 
-        const defaultAdmin = {
-            userId: 'admin1',
-            email: 'admin@keralacars.com',
-            hashedPassword: simpleHash('Admin123!')
-        };
+        let users = getUsers();
+        if (users.find(u => u.userId === userId || u.email === email)) {
+            alert('User ID or email already exists!');
+            return;
+        }
 
-        if (userId === defaultAdmin.userId && email === defaultAdmin.email && hashedPassword === defaultAdmin.hashedPassword) {
-            localStorage.setItem('adminToken', 'authenticated');
-            window.location.href = 'admin-panel.html';
+        users.push({ userId, email, hashedPassword, role });
+        saveUsers(users);
+        localStorage.setItem('authToken', userId);
+        localStorage.setItem('authRole', role);
+        redirectUser(role, userId);
+    });
+
+    // Login
+    $('#loginForm').submit(function(e) {
+        e.preventDefault();
+        const userId = $('#loginUserId').val();
+        const email = $('#loginEmail').val();
+        const password = $('#loginPassword').val();
+        const role = $('#loginRole').val();
+        const hashedPassword = simpleHash(password);
+
+        const users = getUsers();
+        const user = users.find(u => u.userId === userId && u.email === email && u.hashedPassword === hashedPassword && u.role === role);
+        if (user) {
+            localStorage.setItem('authToken', userId);
+            localStorage.setItem('authRole', role);
+            redirectUser(role, userId);
         } else {
             alert('Invalid credentials!');
         }
     });
 
-    // Admin panel protection
-    if (window.location.pathname.includes('admin-panel.html') && !localStorage.getItem('adminToken')) {
-        window.location.href = 'admin-login.html';
+    // Redirect based on role
+    function redirectUser(role, userId) {
+        if (role === 'admin') {
+            window.location.href = 'admin-panel.html';
+        } else {
+            window.location.href = 'profile.html';
+        }
+    }
+
+    // Check auth status
+    const token = localStorage.getItem('authToken');
+    const role = localStorage.getItem('authRole');
+    if (token) {
+        $('#authLink').text('Profile').attr('href', 'profile.html');
+        if (window.location.pathname.includes('profile.html')) {
+            const users = getUsers();
+            const user = users.find(u => u.userId === token);
+            if (user) {
+                $('#profileUserId').text(user.userId);
+                $('#profileEmail').text(user.email);
+                $('#profileRole').text(user.role);
+            }
+        }
+    }
+
+    // Protect admin panel
+    if (window.location.pathname.includes('admin-panel.html') && (!token || role !== 'admin')) {
+        window.location.href = 'auth.html';
     }
 
     // Logout
     window.logout = function() {
-        localStorage.removeItem('adminToken');
-        window.location.href = 'admin-login.html';
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('authRole');
+        window.location.href = 'auth.html';
     };
+
+    // Theme switcher
+    window.switchTheme = function(theme) {
+        $('html').attr('data-theme', theme);
+        localStorage.setItem('theme', theme);
+    };
+
+    // Load theme
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    $('html').attr('data-theme', savedTheme);
+    $('.theme-switcher').val(savedTheme);
 
     // Load cars
     function loadCars() {
@@ -48,7 +115,7 @@ $(document).ready(function() {
             $('#newCarsContainer, #usedCarsContainer, #carList').empty();
             data.forEach(car => {
                 const card = `
-                    <div class="col-md-4 mb-4 car-card" data-car-id="${car.id}">
+                    <div class="col-md-4 col-sm-6 mb-4 car-card" data-car-id="${car.id}">
                         <div class="card">
                             <img src="${car.image}" class="card-img-top" alt="${car.model}">
                             <div class="card-body">
@@ -68,7 +135,7 @@ $(document).ready(function() {
 
                 // Admin panel list
                 const adminCard = `
-                    <div class="col-md-4 mb-4">
+                    <div class="col-md-4 col-sm-6 mb-4">
                         <div class="card">
                             <img src="${car.image}" class="card-img-top" alt="${car.model}">
                             <div class="card-body">
@@ -83,7 +150,6 @@ $(document).ready(function() {
                 $('#carList').append(adminCard);
             });
 
-            // Bind events
             bindCarEvents();
         });
     }
@@ -126,7 +192,6 @@ $(document).ready(function() {
         $('.delete-car').off('click').click(function() {
             if (confirm('Are you sure you want to delete this car?')) {
                 const carId = $(this).data('id');
-                // Simulate delete (update cars.json manually)
                 alert('Please update cars.json manually to remove car ID ' + carId);
                 loadCars();
             }
@@ -145,7 +210,7 @@ $(document).ready(function() {
             fuel: $('#carFuel').val(),
             city: $('#carCity').val(),
             details: $('#carDetails').val(),
-            image: 'images/placeholder.jpg' // Default
+            image: 'images/placeholder.jpg'
         };
 
         const file = $('#carImage')[0].files[0];
@@ -162,7 +227,6 @@ $(document).ready(function() {
     });
 
     function saveCar(car) {
-        // Simulate save (update cars.json manually)
         alert('Please update cars.json manually with: ' + JSON.stringify(car));
         resetForm();
         loadCars();
@@ -225,7 +289,7 @@ $(document).ready(function() {
             } else {
                 results.forEach(car => {
                     const card = `
-                        <div class="col-md-4 mb-4 car-card" data-car-id="${car.id}">
+                        <div class="col-md-4 col-sm-6 mb-4 car-card" data-car-id="${car.id}">
                             <div class="card">
                                 <img src="${car.image}" class="card-img-top" alt="${car.model}">
                                 <div class="card-body">
@@ -258,8 +322,8 @@ $(document).ready(function() {
         alert(`Switching to ${lang}`);
     };
 
-    // Load cars on admin panel
-    if (window.location.pathname.includes('admin-panel.html')) {
+    // Load cars on admin panel and main page
+    if (window.location.pathname.includes('admin-panel.html') || window.location.pathname.includes('index.html')) {
         loadCars();
     }
 });
