@@ -1,0 +1,42 @@
+[
+    {
+        "id": 1,
+        "model": "Honda City 2023",
+        "type": "new",
+        "price": 1250000,
+        "fuel": "Petrol",
+        "city": "Kochi",
+        "image": "images/car1.jpg",
+        "details": "1.5L engine, 26 kmpl mileage, automatic transmission, ABS, airbags."
+    },
+    {
+        "id": 2,
+        "model": "Maruti Swift 2023",
+        "type": "new",
+        "price": 750000,
+        "fuel": "Petrol",
+        "city": "Thrissur",
+        "image": "images/car2.jpg",
+        "details": "1.2L engine, 23 kmpl mileage, manual transmission, touchscreen infotainment."
+    },
+    {
+        "id": 3,
+        "model": "Kia Seltos 2020",
+        "type": "used",
+        "price": 800000,
+        "fuel": "Diesel",
+        "city": "Kochi",
+        "image": "images/car1.jpg",
+        "details": "1.5L diesel, 21 kmpl, 50,000 km driven, sunroof, leather seats."
+    },
+    {
+        "id": 4,
+        "model": "Tata Altroz 2021",
+        "type": "used",
+        "price": 550000,
+        "fuel": "Petrol",
+        "city": "Trivandrum",
+        "image": "images/car2.jpg",
+        "details": "1.2L engine, 20 kmpl, 30,000 km driven, rear camera."
+    }
+]

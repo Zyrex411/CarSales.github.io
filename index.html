@@ -23,7 +23,7 @@
             "postalCode": "682001",
             "addressCountry": "IN"
         },
-        "telephone": "+91-9876543210",
+        "telephone": "+91-9800000000",
         "url": "https://Zyrex411.github.io/CARPRJ"
     }
     </script>
@@ -79,35 +79,10 @@
         </div>
     </section>
 
-    <section id="cars-by-budget" class="py-5">
+    <section id="search-results" class="py-5" style="display: none;">
         <div class="container">
-            <h2>Cars by Budget</h2>
-            <div class="row mt-4">
-                <div class="col-md-3">
-                    <a href="#new-cars" class="budget-card card text-center p-3 mb-3">
-                        <h5>Under ₹10 Lakh</h5>
-                        <p>Avg. Ex-Showroom Price</p>
-                    </a>
-                </div>
-                <div class="col-md-3">
-                    <a href="#new-cars" class="budget-card card text-center p-3 mb-3">
-                        <h5>₹10 - 20 Lakh</h5>
-                        <p>Avg. Ex-Showroom Price</p>
-                    </a>
-                </div>
-                <div class="col-md-3">
-                    <a href="#new-cars" class="budget-card card text-center p-3 mb-3">
-                        <h5>₹20 - 30 Lakh</h5>
-                        <p>Avg. Ex-Showroom Price</p>
-                    </a>
-                </div>
-                <div class="col-md-3">
-                    <a href="#new-cars" class="budget-card card text-center p-3 mb-3">
-                        <h5>Luxury Cars</h5>
-                        <p>Avg. Ex-Showroom Price</p>
-                    </a>
-                </div>
-            </div>
+            <h2>Search Results</h2>
+            <div id="results-container" class="row"></div>
         </div>
     </section>
 
@@ -115,24 +90,24 @@
         <div class="container">
             <h2>New Cars</h2>
             <div class="row mt-4">
-                <div class="col-md-4 mb-4 car-card">
+                <div class="col-md-4 mb-4 car-card" data-car-id="1">
                     <div class="card">
                         <img src="images/car1.jpg" class="card-img-top" alt="Honda City 2023">
                         <div class="card-body">
                             <h5 class="card-title">Honda City 2023</h5>
                             <p class="card-text">Price: ₹12,50,000</p>
-                            <a href="#" class="btn btn-primary">View Details</a>
+                            <button class="btn btn-primary view-details" data-bs-toggle="modal" data-bs-target="#carDetailsModal">View Details</button>
                             <button onclick="shareCarOnWhatsApp('Honda City 2023', '1250000')" class="btn btn-success mt-2"><i class="fab fa-whatsapp"></i> Share</button>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-4 car-card">
+                <div class="col-md-4 mb-4 car-card" data-car-id="2">
                     <div class="card">
                         <img src="images/car2.jpg" class="card-img-top" alt="Maruti Swift 2023">
                         <div class="card-body">
                             <h5 class="card-title">Maruti Swift 2023</h5>
                             <p class="card-text">Price: ₹7,50,000</p>
-                            <a href="#" class="btn btn-primary">View Details</a>
+                            <button class="btn btn-primary view-details" data-bs-toggle="modal" data-bs-target="#carDetailsModal">View Details</button>
                             <button onclick="shareCarOnWhatsApp('Maruti Swift 2023', '750000')" class="btn btn-success mt-2"><i class="fab fa-whatsapp"></i> Share</button>
                         </div>
                     </div>
@@ -145,24 +120,24 @@
         <div class="container">
             <h2>Popular Used Cars in Kerala</h2>
             <div class="row mt-4">
-                <div class="col-md-4 mb-4 car-card">
+                <div class="col-md-4 mb-4 car-card" data-car-id="3">
                     <div class="card">
                         <img src="images/car1.jpg" class="card-img-top" alt="Used Kia Seltos">
                         <div class="card-body">
                             <h5 class="card-title">Kia Seltos 2020</h5>
                             <p class="card-text">Price: ₹8,00,000</p>
-                            <a href="#" class="btn btn-primary">View Details</a>
+                            <button class="btn btn-primary view-details" data-bs-toggle="modal" data-bs-target="#carDetailsModal">View Details</button>
                             <button onclick="shareCarOnWhatsApp('Kia Seltos 2020', '800000')" class="btn btn-success mt-2"><i class="fab fa-whatsapp"></i> Share</button>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-4 car-card">
+                <div class="col-md-4 mb-4 car-card" data-car-id="4">
                     <div class="card">
                         <img src="images/car2.jpg" class="card-img-top" alt="Used Tata Altroz">
                         <div class="card-body">
                             <h5 class="card-title">Tata Altroz 2021</h5>
                             <p class="card-text">Price: ₹5,50,000</p>
-                            <a href="#" class="btn btn-primary">View Details</a>
+                            <button class="btn btn-primary view-details" data-bs-toggle="modal" data-bs-target="#carDetailsModal">View Details</button>
                             <button onclick="shareCarOnWhatsApp('Tata Altroz 2021', '550000')" class="btn btn-success mt-2"><i class="fab fa-whatsapp"></i> Share</button>
                         </div>
                     </div>
@@ -175,7 +150,7 @@
         <div class="container">
             <h2>Want to Sell Your Car?</h2>
             <p class="lead">Reach thousands of buyers in Kerala!</p>
-            <form action="https://formspree.io/f/xeokqbzg" method="POST" class="mt-4">
+            <form id="sellCarForm" class="mt-4">
                 <div class="row g-3">
                     <div class="col-md-4">
                         <label for="sellerName" class="form-label">Name</label>
@@ -198,38 +173,61 @@
                         <input type="text" class="form-control" id="carPrice" name="car_price" placeholder="e.g. ₹5,00,000" required>
                     </div>
                     <div class="col-md-12">
-                        <button type="submit" class="btn btn-primary">Submit Details</button>
+                        <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#sellCarModal">Submit Details</button>
                     </div>
                 </div>
             </form>
         </div>
     </section>
 
-    <section id="fuel-type" class="py-5">
-        <div class="container">
-            <h2>Cars by Fuel Type</h2>
-            <div class="row mt-4">
-                <div class="col-md-4">
-                    <a href="#new-cars" class="fuel-card card text-center p-3 mb-3">
-                        <h5>Electric Cars</h5>
-                        <p>Avg. Ex-Showroom Price</p>
-                    </a>
+    <!-- Car Details Modal -->
+    <div class="modal fade" id="carDetailsModal" tabindex="-1" aria-labelledby="carDetailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="carDetailsModalLabel">Car Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="col-md-4">
-                    <a href="#new-cars" class="fuel-card card text-center p-3 mb-3">
-                        <h5>Hybrid Cars</h5>
-                        <p>Avg. Ex-Showroom Price</p>
-                    </a>
+                <div class="modal-body">
+                    <img id="carImage" src="" class="img-fluid mb-3" alt="">
+                    <h5 id="carModel"></h5>
+                    <p><strong>Price:</strong> <span id="carPrice"></span></p>
+                    <p><strong>Fuel:</strong> <span id="carFuel"></span></p>
+                    <p><strong>City:</strong> <span id="carCity"></span></p>
+                    <p><strong>Details:</strong> <span id="carDetails"></span></p>
                 </div>
-                <div class="col-md-4">
-                    <a href="#new-cars" class="fuel-card card text-center p-3 mb-3">
-                        <h5>CNG Cars</h5>
-                        <p>Avg. Ex-Showroom Price</p>
-                    </a>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+
+    <!-- Sell Car Modal -->
+    <div class="modal fade" id="sellCarModal" tabindex="-1" aria-labelledby="sellCarModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="sellCarModalLabel">Submission Confirmation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Thank you, <span id="submittedName"></span>!</p>
+                    <p>We’ve received your request to sell:</p>
+                    <ul>
+                        <li><strong>Car Model:</strong> <span id="submittedModel"></span></li>
+                        <li><strong>Year:</strong> <span id="submittedYear"></span></li>
+                        <li><strong>Expected Price:</strong> <span id="submittedPrice"></span></li>
+                        <li><strong>Email:</strong> <span id="submittedEmail"></span></li>
+                    </ul>
+                    <p>We’ll contact you soon!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <footer class="py-3 bg-dark text-white text-center">
         <div class="container">
