@@ -1,15 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script type="application/ld+json">
-    // Paste schema.json content here
-</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Affordable car sales in Kerala. Find used and new cars in Kochi, Thrissur, and more.">
     <meta name="keywords" content="car sales Kerala, used cars Kochi, affordable cars Thrissur">
     <title>Kerala Car Sales</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "CarDealer",
+        "name": "Kerala Car Sales",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "123 MG Road",
+            "addressLocality": "Kochi",
+            "addressRegion": "Kerala",
+            "postalCode": "682001",
+            "addressCountry": "IN"
+        },
+        "telephone": "+91-9876543210",
+        "url": "https://github.com/Zyrex411"
+    }
+    </script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -24,7 +39,7 @@
                     <li class="nav-item"><a class="nav-link" href="#inventory">Inventory</a></li>
                     <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#blog">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
                 </ul>
             </div>
         </div>
@@ -44,34 +59,62 @@
             <div class="row">
                 <div class="col-md-4 mb-4">
                     <div class="card">
-                        <img src="https://unsplash.com/photos/white-car-m3m-lnR90uM" class="card-img-top" alt="Car 1">
+                        <img src="https://unsplash.com/photos/an-orange-and-white-car-parked-in-front-of-a-body-of-water-Ynycw1OzZdI" class="card-img-top" alt="Honda City 2020">
                         <div class="card-body">
                             <h5 class="card-title">Honda City 2020</h5>
                             <p class="card-text">Price: ₹8,50,000</p>
                             <a href="#" class="btn btn-primary">View Details</a>
+                            <button onclick="shareCarOnWhatsApp('Honda City 2020', '850000')" class="btn btn-success mt-2">Share on WhatsApp</button>
                         </div>
                     </div>
                 </div>
-                <!-- Add more car cards here -->
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="images/car1.jpg" class="card-img-top" alt="Maruti Swift 2021">
+                        <div class="card-body">
+                            <h5 class="card-title">Maruti Swift 2021</h5>
+                            <p class="card-text">Price: ₹6,50,000</p>
+                            <a href="#" class="btn btn-primary">View Details</a>
+                            <button onclick="shareCarOnWhatsApp('Maruti Swift 2021', '650000')" class="btn btn-success mt-2">Share on WhatsApp</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                        <img src="https://unsplash.com/photos/silver-sports-coupe-on-asphalt-road-ZRns2R5azu0" class="card-img-top" alt="Maruti Swift 2021">
+                        <div class="card-body">
+                            <h5 class="card-title">Maruti Swift 2021</h5>
+                            <p class="card-text">Price: ₹6,50,000</p>
+                            <a href="#" class="btn btn-primary">View Details</a>
+                            <button onclick="shareCarOnWhatsApp('Maruti Swift 2021', '650000')" class="btn btn-success mt-2">Share on WhatsApp</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="py-5 bg-light">
+    <section id="about" class="py-5 bg-light">
+        <div class="container">
+            <h2>About Us</h2>
+            <p>We are Kerala's trusted car dealership, offering quality used and new cars at unbeatable prices.</p>
+        </div>
+    </section>
+
+    <section id="contact" class="py-5">
         <div class="container">
             <h2>Contact Us</h2>
-            <form>
+            <form action="https://formspree.io/f/xeokqbzg" method="POST">
                 <div class="mb-3">
                     <label for="name" class="form-label">Name</label>
-                    <input type="text" class="form-control" id="name" required>
+                    <input type="text" class="form-control" id="name" name="name" required>
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" required>
+                    <input type="email" class="form-control" id="email" name="email" required>
                 </div>
                 <div class="mb-3">
                     <label for="message" class="form-label">Message</label>
-                    <textarea class="form-control" id="message" rows="4" required></textarea>
+                    <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Send</button>
             </form>
@@ -80,10 +123,11 @@
 
     <footer class="py-3 bg-dark text-white text-center">
         <div class="container">
-            <p>&copy; 2025 Kerala Car Sales. All Rights Reserved.</p>
+            <p>© 2025 Kerala Car Sales. All Rights Reserved.</p>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
